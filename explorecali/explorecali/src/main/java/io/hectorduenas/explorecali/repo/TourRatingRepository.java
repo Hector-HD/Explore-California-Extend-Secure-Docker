@@ -9,14 +9,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import io.hectorduenas.explorecali.domain.TourRating;
-import io.hectorduenas.explorecali.domain.TourRatingPK;
 
 @RepositoryRestResource(exported=false)
-public interface TourRatingRepository extends CrudRepository<TourRating, TourRatingPK>{
+public interface TourRatingRepository extends CrudRepository<TourRating, Integer>{
 	
-	List<TourRating> findByPkTourId(Integer tourId);
+	List<TourRating> findByTourId(Integer tourId);
 	
-	Optional<TourRating> findByPkTourIdAndPkCustomerId(Integer tourId, Integer customerId);
+	Optional<TourRating> findByTourIdAndCustomerId(Integer tourId, Integer customerId);
 	
-	Page<TourRating> findByPkTourId(Integer tourId, Pageable pageable);
+	Page<TourRating> findByTourId(Integer tourId, Pageable pageable);
 }

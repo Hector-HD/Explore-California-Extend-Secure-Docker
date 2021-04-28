@@ -1,11 +1,13 @@
 package io.hectorduenas.explorecali.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.Objects;
 
+import javax.persistence.*;
+
+@Table(name="tour_package")
 @Entity
-public class TourPackage {
+public class TourPackage implements Serializable{
 	
 	@Id
 	private String code;
@@ -35,33 +37,16 @@ public class TourPackage {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TourPackage that = (TourPackage) o;
+        return Objects.equals(code, that.code) &&
+                Objects.equals(name, that.name);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TourPackage other = (TourPackage) obj;
-		if (code == null) {
-			if (other.code != null)
-				return false;
-		} else if (!code.equals(other.code))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, name);
+    }
 }
