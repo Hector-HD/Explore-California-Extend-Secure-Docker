@@ -26,55 +26,26 @@ public class TourRatingService {
     private TourRatingRepository tourRatingRepository;
     private TourRepository tourRepository;
 
-    /**
-     * Construct TourRatingService
-     *
-     * @param tourRatingRepository Tour Rating Repository
-     * @param tourRepository Tour Repository
-     */
+   
     @Autowired
     public TourRatingService(TourRatingRepository tourRatingRepository, TourRepository tourRepository) {
         this.tourRatingRepository = tourRatingRepository;
         this.tourRepository = tourRepository;
     }
 
-    /**
-     * Create a new Tour Rating in the database
-     *
-     * @param tourId tour identifier
-     * @param customerId customer identifier
-     * @param score score of the tour rating
-     * @param comment additional comment
-     * @throws NoSuchElementException if no Tour found.
-     */
     public void createNew(int tourId, Integer customerId, Integer score, String comment) throws NoSuchElementException {
     	LOGGER.info("Create new rating for tour {} of customer {}", tourId, customerId);
         tourRatingRepository.save(new TourRating(verifyTour(tourId), customerId,
                 score, comment));
     }
 
-    /**
-     * Get a page of tour ratings for a tour.
-     *
-     * @param tourId tour identifier
-     * @param pageable page parameters to determine which elements to fetch
-     * @return Page of TourRatings
-     * @throws NoSuchElementException if no Tour found.
-     */
+    
     public Page<TourRating> lookupRatings(int tourId, Pageable pageable) throws NoSuchElementException  {
     	LOGGER.info("Lookup rating for tour {}" , tourId);
         return tourRatingRepository.findByTourId(verifyTour(tourId).getId(), pageable);
     }
 
-    /**
-     * Update some of the elements of a Tour Rating.
-     *
-     * @param tourId tour identifier
-     * @param score score of the tour rating
-     * @param comment additional comment
-     * @return Tour Rating Domain Object
-     * @throws NoSuchElementException if no Tour found.
-     */
+   
     public TourRating update(int tourId, Integer customerId, Integer score, String comment) throws NoSuchElementException {
     	LOGGER.info("Update rating for tour {} of customer {}", tourId , customerId);
         TourRating rating = verifyTourRating(tourId, customerId);
@@ -83,16 +54,7 @@ public class TourRatingService {
         return tourRatingRepository.save(rating);
     }
 
-    /**
-     * Update all of the elements of a Tour Rating.
-     *
-     * @param tourId tour identifier
-     * @param customerId customer identifier
-     * @param score score of the tour rating
-     * @param comment additional comment
-     * @return Tour Rating Domain Object
-     * @throws NoSuchElementException if no Tour found.
-     */
+   
     public TourRating updateSome(int tourId, Integer customerId, Integer score, String comment)
             throws NoSuchElementException {
         TourRating rating = verifyTourRating(tourId, customerId);

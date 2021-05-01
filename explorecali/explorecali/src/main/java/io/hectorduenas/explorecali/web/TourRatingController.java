@@ -103,7 +103,7 @@ public class TourRatingController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
     public String return400(NoSuchElementException ex) {
-    	LOGGER.info("Unable to complete transaction.");
+    	LOGGER.info("Unable to complete transaction", ex);
         return ex.getMessage();
 
     }
